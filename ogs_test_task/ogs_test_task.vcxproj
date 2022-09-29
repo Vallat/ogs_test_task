@@ -151,13 +151,23 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="AwaitingInput.cpp" />
+    <ClCompile Include="GameState.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="ResultDisplay.cpp" />
     <ClCompile Include="SlotRow.cpp" />
+    <ClCompile Include="SlotSpinning.cpp" />
     <ClCompile Include="SlotSymbol.cpp" />
+    <ClCompile Include="StateMachine.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="AwaitingInput.h" />
+    <ClInclude Include="GameState.h" />
+    <ClInclude Include="ResultDisplay.h" />
     <ClInclude Include="SlotRow.h" />
+    <ClInclude Include="SlotSpinning.h" />
     <ClInclude Include="SlotSymbol.h" />
+    <ClInclude Include="StateMachine.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

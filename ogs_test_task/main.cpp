@@ -1,4 +1,5 @@
 #include <SFML/Graphics.hpp>
+#include <iostream>
 #include "SlotRow.h"
 
 const size_t ROWS_AMOUNT = 3;
@@ -32,6 +33,7 @@ int main()
 		
 		window.clear();
 
+		bool all_spins_done = true;
 		for (size_t iterator = 0; iterator < ROWS_AMOUNT; ++iterator)
 		{
 			SlotRow* slot_row = rows[iterator];
@@ -39,7 +41,10 @@ int main()
 			rows_texture.create(static_cast<unsigned int>(ROW_WIDTH * 1.5), ROW_HEIGHT);
 
 			rows_texture.clear();
-			slot_row->do_spin(iterator, 6);
+			if (!slot_row->do_spin(iterator, 6))
+			{
+				all_spins_done = false;
+			}
 			slot_row->display_symbols(&rows_texture);
 			rows_texture.display();
 
@@ -48,6 +53,11 @@ int main()
 			window.draw(rows_sprite);
 		}
 		window.display();
+
+		if (all_spins_done)
+		{
+			std::cout << "all spins done" << std::endl;
+		}
 	}
 
 	return 0;

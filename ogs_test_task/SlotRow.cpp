@@ -100,3 +100,9 @@ bool SlotRow::do_spin(size_t stop_at_index, size_t max_spins)
 	}
 	return false;
 }
+
+
+size_t SlotRow::get_middle_symbol_index()
+{
+	return SlotRow::middle_symbol_index;
+}

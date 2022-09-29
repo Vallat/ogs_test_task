@@ -13,6 +13,12 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="Исходные файлы\gamestates">
+      <UniqueIdentifier>{a2017913-77d3-486d-83e2-030077bb16a1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Файлы заголовков\gamestates">
+      <UniqueIdentifier>{5c4d83d0-0cf8-4d9c-a821-2d733108148e}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -24,6 +30,21 @@
     <ClCompile Include="SlotRow.cpp">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
+    <ClCompile Include="StateMachine.cpp">
+      <Filter>Исходные файлы</Filter>
+    </ClCompile>
+    <ClCompile Include="GameState.cpp">
+      <Filter>Исходные файлы\gamestates</Filter>
+    </ClCompile>
+    <ClCompile Include="SlotSpinning.cpp">
+      <Filter>Исходные файлы\gamestates</Filter>
+    </ClCompile>
+    <ClCompile Include="AwaitingInput.cpp">
+      <Filter>Исходные файлы\gamestates</Filter>
+    </ClCompile>
+    <ClCompile Include="ResultDisplay.cpp">
+      <Filter>Исходные файлы\gamestates</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="SlotSymbol.h">
@@ -31,6 +52,21 @@
     </ClInclude>
     <ClInclude Include="SlotRow.h">
       <Filter>Файлы заголовков</Filter>
+    </ClInclude>
+    <ClInclude Include="StateMachine.h">
+      <Filter>Файлы заголовков</Filter>
+    </ClInclude>
+    <ClInclude Include="GameState.h">
+      <Filter>Файлы заголовков\gamestates</Filter>
+    </ClInclude>
+    <ClInclude Include="AwaitingInput.h">
+      <Filter>Файлы заголовков\gamestates</Filter>
+    </ClInclude>
+    <ClInclude Include="ResultDisplay.h">
+      <Filter>Файлы заголовков\gamestates</Filter>
+    </ClInclude>
+    <ClInclude Include="SlotSpinning.h">
+      <Filter>Файлы заголовков\gamestates</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

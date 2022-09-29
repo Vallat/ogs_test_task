@@ -22,6 +22,7 @@ public:
 	void display_symbols(sf::RenderTexture *texture);
 	void start_spinning(float spin_speed_);
 	bool do_spin(size_t stop_at_index, size_t max_spins);
+	size_t get_middle_symbol_index();
 
 private:
 	SlotSymbol symbols[SYMBOLS_AMOUNT];
