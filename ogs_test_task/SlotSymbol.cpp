@@ -2,6 +2,7 @@
 
 SlotSymbol::SlotSymbol()
 {
+	SlotSymbol::texture = nullptr;
 	SlotSymbol::sprite = new sf::Sprite;
 }
 
