@@ -1,36 +1,53 @@
 #include <SFML/Graphics.hpp>
 #include "SlotRow.h"
 
+const size_t ROWS_AMOUNT = 3;
+const unsigned int WINDOW_HEIGHT = 600;
+const unsigned int WINDOW_WIDTH = 500;
+const float ROW_HEIGHT = 500;
+const float ROW_WIDTH = 100;
+
 int main()
 {
-    sf::RenderWindow window(sf::VideoMode(300, 600), "SFML works!");
+	sf::RenderWindow window(sf::VideoMode(WINDOW_WIDTH, WINDOW_HEIGHT), "test task");
 
-    //sf::Texture texture;
-    //texture.loadFromFile("resources/shape_1.png");
-
-    //sf::Sprite sprite;
-    //sprite.setTexture(texture);
-    //sprite.setScale(sf::Vector2f(4.f, 4.f));
-
-    //SlotSymbol *symbol = new SlotSymbol(sprite, sf::Vector2f(70.f, 50.f));
-
-    SlotRow* slot_row = new SlotRow(100, 600);
-    slot_row->generate_symbols();
+	SlotRow rows[ROWS_AMOUNT];
+	for (size_t iterator = 0; iterator < ROWS_AMOUNT; ++iterator)
+	{
+		SlotRow* slot_row = new SlotRow(ROW_WIDTH, ROW_HEIGHT);
+		slot_row->generate_symbols();
+		rows[iterator] = *slot_row;
+	}
 
 
-    while (window.isOpen())
-    {
-        sf::Event event;
-        while (window.pollEvent(event))
-        {
-            if (event.type == sf::Event::Closed)
-                window.close();
-        }
+	while (window.isOpen())
+	{
+		sf::Event event;
+		while (window.pollEvent(event))
+		{
+			if (event.type == sf::Event::Closed)
+				window.close();
+		}
+		
+		window.clear();
 
-        window.clear();
-        slot_row->display_symbols(&window);
-        window.display();
-    }
+		for (size_t iterator = 0; iterator < ROWS_AMOUNT; ++iterator)
+		{
+			SlotRow* slot_row = &rows[iterator];
+			sf::RenderTexture rows_texture;
+			rows_texture.create(ROW_WIDTH * 1.5f, ROW_HEIGHT);
 
-    return 0;
+			rows_texture.clear();
+			slot_row->do_spin(1);
+			slot_row->display_symbols(&rows_texture);
+			rows_texture.display();
+
+			sf::Sprite rows_sprite(rows_texture.getTexture());
+			rows_sprite.setPosition(sf::Vector2f(50.0f + ROW_WIDTH * 1.25f * iterator, (WINDOW_HEIGHT - ROW_HEIGHT) / 2));
+			window.draw(rows_sprite);
+		}
+		window.display();
+	}
+
+	return 0;
 }
