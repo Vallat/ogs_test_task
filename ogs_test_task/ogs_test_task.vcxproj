@@ -152,6 +152,12 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="SlotRow.cpp" />
+    <ClCompile Include="SlotSymbol.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="SlotRow.h" />
+    <ClInclude Include="SlotSymbol.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
