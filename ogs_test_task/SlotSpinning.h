@@ -13,7 +13,7 @@ public:
 	bool process() override;
 	void on_wait() override;
 	void on_state_change() override;
-	bool handle_keyboard_input();
+	size_t calculate_win_size();
 
 private:
 	SlotRow* rows_array[ROWS_AMOUNT];

@@ -5,7 +5,7 @@ AwaitingInput::AwaitingInput(Renderer* renderer_) : GameState::GameState(rendere
 
 bool AwaitingInput::process()
 {
-	if (AwaitingInput::handle_keyboard_input())
+	if (GameState::user_pressed_enter())
 	{
 		return false;
 	}
@@ -21,12 +21,3 @@ void AwaitingInput::on_state_change()
 	GameState::on_state_change();
 }
 
-
-bool AwaitingInput::handle_keyboard_input()
-{
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Enter))
-	{
-		return true;
-	}
-	return false;
-}

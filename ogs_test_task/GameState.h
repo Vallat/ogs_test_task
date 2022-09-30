@@ -11,6 +11,7 @@ public:
 	virtual void on_state_change() = 0;
 	bool is_active();
 	Renderer* access_renderer();
+	bool user_pressed_enter();
 
 private:
 	bool active = false;

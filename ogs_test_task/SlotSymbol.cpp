@@ -66,9 +66,29 @@ void SlotSymbol::set_current_index(size_t current_index_)
 	current_index = current_index_;
 }
 
-
 size_t SlotSymbol::get_current_index()
 {
 	return current_index;
 }
 
+
+void SlotSymbol::set_value(size_t value_)
+{
+	value = value_;
+}
+
+size_t SlotSymbol::get_value()
+{
+	return value;
+}
+
+
+void SlotSymbol::set_id(size_t id_)
+{
+	id = id_;
+}
+
+size_t SlotSymbol::get_id()
+{
+	return id;
+}

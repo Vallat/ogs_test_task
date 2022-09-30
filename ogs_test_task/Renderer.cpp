@@ -26,6 +26,11 @@ void Renderer::window_draw(sf::Sprite sprite_to_draw)
 	Renderer::get_window()->draw(sprite_to_draw);
 }
 
+void Renderer::window_draw(sf::Text text_to_draw)
+{
+	Renderer::get_window()->draw(text_to_draw);
+}
+
 
 void Renderer::window_display()
 {

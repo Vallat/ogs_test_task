@@ -18,15 +18,26 @@ class SlotRow
 public:
 	SlotRow();
 	SlotRow(float row_height_, float row_width);
+
+	void set_symbol(size_t index, SlotSymbol* symbol_);
+	SlotSymbol* get_symbol(size_t index);
+
 	void generate_symbols();
 	void initial_position_symbols();
 	void display_symbols(sf::RenderTexture *texture);
+
 	void start_spinning(float spin_speed_, size_t max_spins_, size_t win_index_);
 	bool do_spin();
-	size_t get_middle_symbol_index();
+
 	void set_middle_symbol_index(size_t middle_symbol_index_);
+	size_t get_middle_symbol_index();
+
 	size_t get_done_spins();
+
 	void set_max_spins(size_t max_spins_);
+
+	void set_win_index(size_t win_index_);
+	size_t get_win_index();
 
 private:
 	bool is_spinning = false;

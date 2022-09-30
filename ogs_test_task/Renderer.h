@@ -9,6 +9,7 @@ public:
 	sf::RenderWindow* get_window();
 	void window_clear();
 	void window_draw(sf::Sprite sprite_to_draw);
+	void window_draw(sf::Text text_to_draw);
 	void window_display();
 
 private:

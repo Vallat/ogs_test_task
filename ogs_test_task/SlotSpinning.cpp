@@ -6,7 +6,7 @@ SlotSpinning::SlotSpinning(Renderer* renderer_) : GameState::GameState(renderer_
 	{
 		SlotRow* slot_row = new SlotRow(ROW_WIDTH, ROW_HEIGHT);
 		slot_row->generate_symbols();
-		SlotSpinning::rows_array[iterator] = slot_row;
+		rows_array[iterator] = slot_row;
 	}
 }
 
@@ -18,12 +18,12 @@ bool SlotSpinning::process()
 		return false;
 	}
 
-	if (SlotSpinning::handle_keyboard_input())
+	if (GameState::user_pressed_enter())
 	{
 		bool can_stop = true;
 		for (size_t iterator = 0; iterator < ROWS_AMOUNT; ++iterator)
 		{
-			SlotRow* slot_row = SlotSpinning::rows_array[iterator];
+			SlotRow* slot_row = rows_array[iterator];
 			// we don't want to stop too early
 			if (slot_row->get_done_spins() < MIN_SPINS_BEFORE_STOP)
 			{
@@ -36,7 +36,7 @@ bool SlotSpinning::process()
 		{
 			for (size_t iterator = 0; iterator < ROWS_AMOUNT; ++iterator)
 			{
-				SlotRow* slot_row = SlotSpinning::rows_array[iterator];
+				SlotRow* slot_row = rows_array[iterator];
 
 				slot_row->set_max_spins(0);
 			}
@@ -47,7 +47,7 @@ bool SlotSpinning::process()
 	bool all_spins_done = true;
 	for (size_t iterator = 0; iterator < ROWS_AMOUNT; ++iterator)
 	{
-		SlotRow* slot_row = SlotSpinning::rows_array[iterator];
+		SlotRow* slot_row = rows_array[iterator];
 		if (!slot_row->do_spin())
 		{
 			all_spins_done = false;
@@ -66,7 +66,7 @@ void SlotSpinning::on_wait()
 {
 	for (size_t iterator = 0; iterator < ROWS_AMOUNT; ++iterator)
 	{
-		SlotRow* slot_row = SlotSpinning::rows_array[iterator];
+		SlotRow* slot_row = rows_array[iterator];
 		sf::RenderTexture rows_texture;
 		rows_texture.create(static_cast<unsigned int>(ROW_WIDTH * 1.5), ROW_HEIGHT);
 		rows_texture.clear();
@@ -99,18 +99,41 @@ void SlotSpinning::on_state_change()
 
 	for (size_t iterator = 0; iterator < ROWS_AMOUNT; ++iterator)
 	{
-		SlotRow* slot_row = SlotSpinning::rows_array[iterator];
+		SlotRow* slot_row = rows_array[iterator];
 		slot_row->start_spinning(speed_dist(mt), spins_dist(mt), win_index_dist(mt));
 	}
 }
 
 
-bool SlotSpinning::handle_keyboard_input()
+size_t SlotSpinning::calculate_win_size()
 {
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Enter))
+	size_t symbols_amount[SYMBOLS_AMOUNT];
+	for (size_t iterator = 0; iterator < SYMBOLS_AMOUNT; ++iterator)
 	{
-		return true;
+		symbols_amount[iterator] = 0;
 	}
-	return false;
+
+	for (size_t iterator = 0; iterator < ROWS_AMOUNT; ++iterator)
+	{
+		SlotRow* slot_row = rows_array[iterator];
+		SlotSymbol* symbol = slot_row->get_symbol(slot_row->get_win_index());
+		++symbols_amount[symbol->get_id()];
+	}
+
+	size_t win_amount = 0;
+	SlotRow* reference_row = rows_array[0];
+	for (size_t iterator = 0; iterator < SYMBOLS_AMOUNT; iterator++)
+	{
+		if (symbols_amount[iterator] == 3)
+		{
+			win_amount = reference_row->get_symbol(iterator)->get_value() * 3 * THREE_IN_LINE_MULTIPLIER;
+		}
+		else if (symbols_amount[iterator] == 2)
+		{
+			win_amount = reference_row->get_symbol(iterator)->get_value() * 2 * TWO_IN_LINE_MULTIPLIER;
+		}
+	}
+	return win_amount;
+
 }
 

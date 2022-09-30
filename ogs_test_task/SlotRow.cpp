@@ -1,5 +1,4 @@
 #include "SlotRow.h"
-#include <iostream>
 
 SlotRow::SlotRow()
 {
@@ -15,14 +14,35 @@ SlotRow::SlotRow(float row_width_, float row_height_)
 }
 	
 
+void SlotRow::set_symbol(size_t index, SlotSymbol* symbol_)
+{
+	if (index > SYMBOLS_AMOUNT - 1)
+	{
+		throw std::invalid_argument("set symbol index out of bounds");
+	}
+	symbols[index] = symbol_;
+}
+
+SlotSymbol* SlotRow::get_symbol(size_t index)
+{
+	if (index > SYMBOLS_AMOUNT - 1)
+	{
+		throw std::invalid_argument("get symbol index out of bounds");
+	}
+	return symbols[index];
+}
+
+
 void SlotRow::generate_symbols()
 {
 	for (size_t iterator = 0; iterator < SYMBOLS_AMOUNT; ++iterator)
 	{
 		SlotSymbol *symbol_to_add = new SlotSymbol(textures_list[iterator], sprites_scale);
-		SlotRow::symbols[iterator] = symbol_to_add;
+		symbol_to_add->set_value(iterator * 10);
+		symbol_to_add->set_id(iterator);
+		set_symbol(iterator, symbol_to_add);
 	}
-	std::random_shuffle(&SlotRow::symbols[0], &SlotRow::symbols[SYMBOLS_AMOUNT - 1]);
+	std::random_shuffle(&symbols[0], &symbols[SYMBOLS_AMOUNT - 1]);
 	SlotRow::initial_position_symbols();
 }
 
@@ -31,7 +51,7 @@ void SlotRow::initial_position_symbols()
 {
 	for (size_t iterator = 0; iterator < SYMBOLS_AMOUNT; ++iterator)
 	{
-		SlotSymbol *symbol = SlotRow::symbols[iterator];
+		SlotSymbol *symbol = get_symbol(iterator);
 		float y_position = SlotRow::row_height / LINES_AMOUNT * (static_cast<float>(iterator) - 1);
 		symbol->set_position(sf::Vector2f(0, y_position));
 		symbol->set_current_index(iterator);
@@ -43,7 +63,7 @@ void SlotRow::display_symbols(sf::RenderTexture *texture)
 {
 	for (size_t iterator = 0; iterator < SYMBOLS_AMOUNT; ++iterator)
 	{
-		SlotSymbol *symbol = SlotRow::symbols[iterator];
+		SlotSymbol *symbol = get_symbol(iterator);
 		texture->draw(*symbol->get_sprite());
 	}
 }
@@ -71,7 +91,7 @@ bool SlotRow::do_spin()
 
 	for (size_t iterator = 0; iterator < SYMBOLS_AMOUNT; ++iterator)
 	{
-		SlotSymbol* symbol = SlotRow::symbols[iterator];
+		SlotSymbol* symbol = get_symbol(iterator);
 
 		// getting next position we want to move the symbol
 		size_t next_position_symbol_index = get_real_index_offset(symbol->get_current_index(), SYMBOLS_AMOUNT, 1);
@@ -161,4 +181,15 @@ size_t SlotRow::get_done_spins()
 void SlotRow::set_max_spins(size_t max_spins_)
 {
 	max_spins = max_spins_;
+}
+
+
+void SlotRow::set_win_index(size_t win_index_)
+{
+	win_index = win_index_;
+}
+
+size_t SlotRow::get_win_index()
+{
+	return win_index;
 }

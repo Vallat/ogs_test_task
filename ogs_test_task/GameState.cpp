@@ -23,3 +23,13 @@ Renderer* GameState::access_renderer()
 {
 	return renderer;
 }
+
+
+bool GameState::user_pressed_enter()
+{
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Enter))
+	{
+		return true;
+	}
+	return false;
+}
