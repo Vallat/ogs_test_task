@@ -26,17 +26,49 @@ sf::Sprite *SlotSymbol::get_sprite()
 
 void SlotSymbol::set_position(sf::Vector2f position)
 {
-	SlotSymbol::sprite->setPosition(position);
+	SlotSymbol::get_sprite()->setPosition(position);
 }
 
 
 sf::Vector2f SlotSymbol::get_position()
 {
-	return SlotSymbol::sprite->getPosition();	
+	return SlotSymbol::get_sprite()->getPosition();
 }
 
 
 void SlotSymbol::do_move(sf::Vector2f offset)
 {
-	SlotSymbol::sprite->move(offset);
+	SlotSymbol::get_sprite()->move(offset);
 }
+
+
+bool SlotSymbol::move_sprite_to(sf::Vector2f new_position, sf::Vector2f move_speed)
+{
+	sf::Vector2f move_offset(new_position - SlotSymbol::get_position());
+	if (!move_offset.y)
+	{
+		return false;
+	}
+
+	if (move_offset.y > move_speed.y)
+	{
+		move_offset = move_speed;
+	}
+	else
+		move_offset = move_offset;;
+	SlotSymbol::do_move(move_offset);
+	return true;
+}
+
+
+void SlotSymbol::set_current_index(size_t current_index_)
+{
+	current_index = current_index_;
+}
+
+
+size_t SlotSymbol::get_current_index()
+{
+	return current_index;
+}
+

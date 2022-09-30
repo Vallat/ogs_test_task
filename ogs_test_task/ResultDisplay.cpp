@@ -5,7 +5,7 @@ ResultDisplay::ResultDisplay(Renderer* renderer_) : GameState::GameState(rendere
 
 bool ResultDisplay::process()
 {
-	return true;
+	return false;
 }
 
 

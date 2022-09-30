@@ -18,11 +18,37 @@ bool SlotSpinning::process()
 		return false;
 	}
 
+	if (SlotSpinning::handle_keyboard_input())
+	{
+		bool can_stop = true;
+		for (size_t iterator = 0; iterator < ROWS_AMOUNT; ++iterator)
+		{
+			SlotRow* slot_row = SlotSpinning::rows_array[iterator];
+			// we don't want to stop too early
+			if (slot_row->get_done_spins() < MIN_SPINS_BEFORE_STOP)
+			{
+				can_stop = false;
+				break;
+			}
+		}
+
+		if (can_stop)
+		{
+			for (size_t iterator = 0; iterator < ROWS_AMOUNT; ++iterator)
+			{
+				SlotRow* slot_row = SlotSpinning::rows_array[iterator];
+
+				slot_row->set_max_spins(0);
+			}
+		}
+
+	}
+
 	bool all_spins_done = true;
 	for (size_t iterator = 0; iterator < ROWS_AMOUNT; ++iterator)
 	{
 		SlotRow* slot_row = SlotSpinning::rows_array[iterator];
-		if (!slot_row->do_spin(iterator, 6))
+		if (!slot_row->do_spin())
 		{
 			all_spins_done = false;
 		}
@@ -59,9 +85,32 @@ void SlotSpinning::on_wait()
 void SlotSpinning::on_state_change()
 {
 	GameState::on_state_change();
+
+	if (!GameState::is_active())
+	{
+		return;
+	}
+
+	std::random_device rd;
+	std::mt19937 mt(rd());
+	std::uniform_real_distribution<float> speed_dist(SPIN_SPEED * 0.75f, SPIN_SPEED * 1.5f);
+	std::uniform_int_distribution<size_t> spins_dist(SPINS_BOTTOM_LIMIT, SPINS_UPPER_LIMIT);
+	std::uniform_int_distribution<size_t> win_index_dist(0, SYMBOLS_AMOUNT - 1);
+
 	for (size_t iterator = 0; iterator < ROWS_AMOUNT; ++iterator)
 	{
 		SlotRow* slot_row = SlotSpinning::rows_array[iterator];
-		slot_row->start_spinning(SPIN_SPEED);
+		slot_row->start_spinning(speed_dist(mt), spins_dist(mt), win_index_dist(mt));
 	}
 }
+
+
+bool SlotSpinning::handle_keyboard_input()
+{
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Enter))
+	{
+		return true;
+	}
+	return false;
+}
+

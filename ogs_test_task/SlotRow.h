@@ -11,6 +11,8 @@ const sf::Vector2f sprites_scale = sf::Vector2f(4.f, 4.f);
 const float ACCELERATION_MULTIPLIER = 0.05f;
 const float SLOWDOWN_MULTIPLIER = 0.1f;
 
+size_t get_real_index_offset(size_t index, size_t max_value, int offset);
+
 class SlotRow
 {
 public:
@@ -19,12 +21,16 @@ public:
 	void generate_symbols();
 	void initial_position_symbols();
 	void display_symbols(sf::RenderTexture *texture);
-	void start_spinning(float spin_speed_);
-	bool do_spin(size_t stop_at_index, size_t max_spins);
+	void start_spinning(float spin_speed_, size_t max_spins_, size_t win_index_);
+	bool do_spin();
 	size_t get_middle_symbol_index();
+	void set_middle_symbol_index(size_t middle_symbol_index_);
+	size_t get_done_spins();
+	void set_max_spins(size_t max_spins_);
 
 private:
-	SlotSymbol symbols[SYMBOLS_AMOUNT];
+	bool is_spinning = false;
+	SlotSymbol *symbols[SYMBOLS_AMOUNT];
 	float row_height;
 	float row_width;
 	float spin_speed = 2.0f;
@@ -32,5 +38,7 @@ private:
 
 	size_t middle_symbol_index = SYMBOLS_AMOUNT;
 	size_t spins_done = 0;
+	size_t max_spins = 100;
+	size_t win_index = 0;
 };
 
