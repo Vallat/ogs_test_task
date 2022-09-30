@@ -37,7 +37,7 @@ void SlotRow::generate_symbols()
 {
 	for (size_t iterator = 0; iterator < SYMBOLS_AMOUNT; ++iterator)
 	{
-		SlotSymbol *symbol_to_add = new SlotSymbol(textures_list[iterator], sprites_scale);
+		SlotSymbol *symbol_to_add = new SlotSymbol(textures_list[iterator], SPRITES_SCALE);
 		symbol_to_add->set_value(iterator * 10);
 		symbol_to_add->set_id(iterator);
 		set_symbol(iterator, symbol_to_add);
@@ -132,7 +132,7 @@ bool SlotRow::do_spin()
 	
 		if (middle_symbol_index == (SYMBOLS_AMOUNT - 1))
 		{
-			++spins_done;
+			set_done_spins(get_done_spins() + 1);
 		}
 		
 	}
@@ -171,6 +171,11 @@ size_t get_real_index_offset(size_t index, size_t max_value, int offset)
 	return static_cast<size_t>(real_value);
 }
 
+
+void SlotRow::set_done_spins(size_t spins_done_)
+{
+	spins_done = spins_done_;
+}
 
 size_t SlotRow::get_done_spins()
 {

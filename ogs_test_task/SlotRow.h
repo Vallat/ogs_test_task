@@ -2,14 +2,11 @@
 
 #include <SFML/Graphics.hpp>
 #include "SlotSymbol.h"
+#include "Globals.h"
 
 const size_t LINES_AMOUNT = 3;
 const std::string textures_list[] = {"resources/shape_1.png", "resources/shape_2.png" , "resources/shape_3.png" , "resources/shape_4.png" , "resources/shape_5.png" };
 constexpr size_t SYMBOLS_AMOUNT = _countof(textures_list);
-const sf::Vector2f sprites_scale = sf::Vector2f(4.f, 4.f);
-
-const float ACCELERATION_MULTIPLIER = 0.05f;
-const float SLOWDOWN_MULTIPLIER = 0.1f;
 
 size_t get_real_index_offset(size_t index, size_t max_value, int offset);
 
@@ -32,6 +29,7 @@ public:
 	void set_middle_symbol_index(size_t middle_symbol_index_);
 	size_t get_middle_symbol_index();
 
+	void set_done_spins(size_t spins_done_);
 	size_t get_done_spins();
 
 	void set_max_spins(size_t max_spins_);

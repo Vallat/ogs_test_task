@@ -2,19 +2,19 @@
 
 SlotSymbol::SlotSymbol()
 {
-	SlotSymbol::texture = nullptr;
-	SlotSymbol::sprite = new sf::Sprite;
+	texture = nullptr;
+	sprite = new sf::Sprite;
 }
 
 
 SlotSymbol::SlotSymbol(const std::string &texture_path, sf::Vector2f scale)
 {
-	SlotSymbol::texture = new sf::Texture;
-	SlotSymbol::texture->loadFromFile(texture_path);
-	SlotSymbol::texture->setSmooth(false);
-	SlotSymbol::sprite = new sf::Sprite;
-	SlotSymbol::sprite->setTexture(*SlotSymbol::texture);
-	SlotSymbol::sprite->setScale(scale);
+	texture = new sf::Texture;
+	texture->loadFromFile(texture_path);
+	texture->setSmooth(false);
+	sprite = new sf::Sprite;
+	sprite->setTexture(*SlotSymbol::texture);
+	sprite->setScale(scale);
 }
 
 

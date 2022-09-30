@@ -34,7 +34,7 @@ void StateMachine::process()
 		}
 		break;
 	case States::DISPLAYING_RESULT:
-		if (!result_display_process())
+		if (!result_display_process() || !awaiting_input_process())
 		{
 			set_state(States::AWAITING_INPUT);
 		}

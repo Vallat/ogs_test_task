@@ -1,8 +1,8 @@
 #pragma once
 #include "GameState.h"
 #include "SlotRow.h"
-#include "Globals.h"
 #include <random>
+#include "Button.h"
 
 
 class SlotSpinning :
@@ -17,5 +17,7 @@ public:
 
 private:
 	SlotRow* rows_array[ROWS_AMOUNT];
+	Button* stop_button;
+	bool can_stop = false;
 };
 

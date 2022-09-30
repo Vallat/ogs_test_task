@@ -1,6 +1,7 @@
 #pragma once
 
 #include "Renderer.h"
+#include "Globals.h"
 
 class GameState
 {

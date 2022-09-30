@@ -6,8 +6,12 @@ const unsigned int WINDOW_WIDTH = 900;
 
 const unsigned int  ROW_HEIGHT = 500;
 const unsigned int  ROW_WIDTH = 100;
+const sf::Vector2f SPRITES_SCALE = sf::Vector2f(4.f, 4.f);
 
-const float SPIN_SPEED = 5.0f;
+
+const float SPIN_SPEED = 6.0f;
+const float ACCELERATION_MULTIPLIER = 0.1f;
+const float SLOWDOWN_MULTIPLIER = 0.1f;
 const size_t SPINS_BOTTOM_LIMIT = 20;
 const size_t SPINS_UPPER_LIMIT = 25;
 const size_t MIN_SPINS_BEFORE_STOP = 5;

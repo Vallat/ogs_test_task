@@ -8,6 +8,8 @@ SlotSpinning::SlotSpinning(Renderer* renderer_) : GameState::GameState(renderer_
 		slot_row->generate_symbols();
 		rows_array[iterator] = slot_row;
 	}
+	stop_button = new Button("Resources/button_stop.png", SPRITES_SCALE);
+	stop_button->set_position(sf::Vector2f(WINDOW_WIDTH * 0.75f, WINDOW_HEIGHT * 0.9f));
 }
 
 
@@ -18,9 +20,9 @@ bool SlotSpinning::process()
 		return false;
 	}
 
-	if (GameState::user_pressed_enter())
+	if (!can_stop)
 	{
-		bool can_stop = true;
+		can_stop = true;
 		for (size_t iterator = 0; iterator < ROWS_AMOUNT; ++iterator)
 		{
 			SlotRow* slot_row = rows_array[iterator];
@@ -31,17 +33,18 @@ bool SlotSpinning::process()
 				break;
 			}
 		}
+	}
 
-		if (can_stop)
+	sf::Vector2f mouse_position(sf::Mouse::getPosition(*GameState::access_renderer()->get_window()));
+	if (can_stop && (GameState::user_pressed_enter() || stop_button->is_clicked(mouse_position)))
+	{
+		for (size_t iterator = 0; iterator < ROWS_AMOUNT; ++iterator)
 		{
-			for (size_t iterator = 0; iterator < ROWS_AMOUNT; ++iterator)
-			{
-				SlotRow* slot_row = rows_array[iterator];
-
-				slot_row->set_max_spins(0);
-			}
+			SlotRow* slot_row = rows_array[iterator];
+			slot_row->set_max_spins(2);
+			slot_row->set_done_spins(0);
 		}
-
+		can_stop = false;
 	}
 
 	bool all_spins_done = true;
@@ -79,11 +82,24 @@ void SlotSpinning::on_wait()
 		rows_sprite.setPosition(sf::Vector2f(50.0f + ROW_WIDTH * 1.25f * iterator, (WINDOW_HEIGHT - ROW_HEIGHT) / 2));
 		GameState::access_renderer()->window_draw(rows_sprite);
 	}
+
+	if (!can_stop)
+	{
+		stop_button->get_sprite()->setColor(sf::Color(120, 120, 120));
+	}
+	else
+	{
+		stop_button->get_sprite()->setColor(sf::Color(255, 255, 255));
+	}
+
+	GameState::access_renderer()->window_draw(*stop_button->get_sprite());
+
 }
 
 
 void SlotSpinning::on_state_change()
 {
+	can_stop = false;
 	GameState::on_state_change();
 
 	if (!GameState::is_active())
@@ -93,7 +109,7 @@ void SlotSpinning::on_state_change()
 
 	std::random_device rd;
 	std::mt19937 mt(rd());
-	std::uniform_real_distribution<float> speed_dist(SPIN_SPEED * 0.75f, SPIN_SPEED * 1.5f);
+	std::uniform_real_distribution<float> speed_dist(SPIN_SPEED * 0.8f, SPIN_SPEED * 1.2f);
 	std::uniform_int_distribution<size_t> spins_dist(SPINS_BOTTOM_LIMIT, SPINS_UPPER_LIMIT);
 	std::uniform_int_distribution<size_t> win_index_dist(0, SYMBOLS_AMOUNT - 1);
 

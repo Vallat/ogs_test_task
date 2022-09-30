@@ -12,7 +12,7 @@ ResultDisplay::ResultDisplay(Renderer* renderer_) : GameState::GameState(rendere
 
 bool ResultDisplay::process()
 {
-	if ((static_cast<std::time_t>(get_time_result_recieved() + SECONDS_TO_DISPLAY_RESULT) < std::time(nullptr)) || GameState::user_pressed_enter())
+	if ((static_cast<std::time_t>(get_time_result_recieved() + SECONDS_TO_DISPLAY_RESULT) < std::time(nullptr)))
 	{
 		return false;
 	}
