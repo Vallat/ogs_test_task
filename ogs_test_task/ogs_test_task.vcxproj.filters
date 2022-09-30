@@ -45,6 +45,9 @@
     <ClCompile Include="ResultDisplay.cpp">
       <Filter>Исходные файлы\gamestates</Filter>
     </ClCompile>
+    <ClCompile Include="Renderer.cpp">
+      <Filter>Исходные файлы</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="SlotSymbol.h">
@@ -67,6 +70,12 @@
     </ClInclude>
     <ClInclude Include="SlotSpinning.h">
       <Filter>Файлы заголовков\gamestates</Filter>
+    </ClInclude>
+    <ClInclude Include="Renderer.h">
+      <Filter>Файлы заголовков</Filter>
+    </ClInclude>
+    <ClInclude Include="Globals.h">
+      <Filter>Файлы заголовков</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

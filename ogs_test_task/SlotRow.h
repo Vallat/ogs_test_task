@@ -4,7 +4,6 @@
 #include "SlotSymbol.h"
 
 const size_t LINES_AMOUNT = 3;
-const float SCREEN_BORDER_OFFSET = 0.1f;
 const std::string textures_list[] = {"resources/shape_1.png", "resources/shape_2.png" , "resources/shape_3.png" , "resources/shape_4.png" , "resources/shape_5.png" };
 constexpr size_t SYMBOLS_AMOUNT = _countof(textures_list);
 const sf::Vector2f sprites_scale = sf::Vector2f(4.f, 4.f);

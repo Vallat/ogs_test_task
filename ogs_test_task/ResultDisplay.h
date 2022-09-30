@@ -4,7 +4,9 @@ class ResultDisplay :
 	public GameState
 {
 public:
-	ResultDisplay();
+	ResultDisplay(Renderer* renderer_);
 	bool process() override;
+	void on_wait() override;
+	void on_state_change() override;
 };
 

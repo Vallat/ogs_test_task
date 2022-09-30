@@ -3,6 +3,7 @@
 #include "AwaitingInput.h"
 #include "SlotSpinning.h"
 #include "ResultDisplay.h"
+#include "Renderer.h"
 
 enum class States
 {
@@ -14,7 +15,7 @@ enum class States
 class StateMachine
 {
 public:
-	StateMachine();
+	StateMachine(Renderer* renderer);
 	void process();
 	void set_state(States new_state);
 	bool awaiting_input_process();

@@ -154,6 +154,7 @@
     <ClCompile Include="AwaitingInput.cpp" />
     <ClCompile Include="GameState.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="Renderer.cpp" />
     <ClCompile Include="ResultDisplay.cpp" />
     <ClCompile Include="SlotRow.cpp" />
     <ClCompile Include="SlotSpinning.cpp" />
@@ -163,6 +164,8 @@
   <ItemGroup>
     <ClInclude Include="AwaitingInput.h" />
     <ClInclude Include="GameState.h" />
+    <ClInclude Include="Globals.h" />
+    <ClInclude Include="Renderer.h" />
     <ClInclude Include="ResultDisplay.h" />
     <ClInclude Include="SlotRow.h" />
     <ClInclude Include="SlotSpinning.h" />
