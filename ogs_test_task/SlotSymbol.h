@@ -6,7 +6,7 @@ class SlotSymbol
 {
 public:
 	SlotSymbol();
-	SlotSymbol(const std::string& texture_path, sf::Vector2f scale);
+	SlotSymbol(const std::string& texture_path, sf::Vector2f scale, size_t value_, size_t id_);
 	sf::Sprite *get_sprite();
 
 	void set_position(sf::Vector2f position);

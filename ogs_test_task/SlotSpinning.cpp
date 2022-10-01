@@ -132,8 +132,7 @@ size_t SlotSpinning::calculate_win_size()
 	for (size_t iterator = 0; iterator < ROWS_AMOUNT; ++iterator)
 	{
 		SlotRow* slot_row = rows_array[iterator];
-		SlotSymbol* symbol = slot_row->get_symbol(slot_row->get_win_index());
-		++symbols_amount[symbol->get_id()];
+		++symbols_amount[slot_row->get_win_index()];
 	}
 
 	size_t win_amount = 0;
@@ -143,10 +142,12 @@ size_t SlotSpinning::calculate_win_size()
 		if (symbols_amount[iterator] == 3)
 		{
 			win_amount = reference_row->get_symbol(iterator)->get_value() * 3 * THREE_IN_LINE_MULTIPLIER;
+			break;
 		}
 		else if (symbols_amount[iterator] == 2)
 		{
 			win_amount = reference_row->get_symbol(iterator)->get_value() * 2 * TWO_IN_LINE_MULTIPLIER;
+			break;
 		}
 	}
 	return win_amount;

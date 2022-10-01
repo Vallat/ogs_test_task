@@ -7,7 +7,7 @@ SlotSymbol::SlotSymbol()
 }
 
 
-SlotSymbol::SlotSymbol(const std::string &texture_path, sf::Vector2f scale)
+SlotSymbol::SlotSymbol(const std::string &texture_path, sf::Vector2f scale, size_t value_, size_t id_)
 {
 	texture = new sf::Texture;
 	texture->loadFromFile(texture_path);
@@ -15,6 +15,9 @@ SlotSymbol::SlotSymbol(const std::string &texture_path, sf::Vector2f scale)
 	sprite = new sf::Sprite;
 	sprite->setTexture(*SlotSymbol::texture);
 	sprite->setScale(scale);
+
+	set_value(value_);
+	set_id(id_);
 }
 
 

@@ -37,9 +37,7 @@ void SlotRow::generate_symbols()
 {
 	for (size_t iterator = 0; iterator < SYMBOLS_AMOUNT; ++iterator)
 	{
-		SlotSymbol *symbol_to_add = new SlotSymbol(textures_list[iterator], SPRITES_SCALE);
-		symbol_to_add->set_value(iterator * 10);
-		symbol_to_add->set_id(iterator);
+		SlotSymbol *symbol_to_add = new SlotSymbol(textures_list[iterator], SPRITES_SCALE, (iterator + 1) * 10, iterator);
 		set_symbol(iterator, symbol_to_add);
 	}
 	std::random_shuffle(&symbols[0], &symbols[SYMBOLS_AMOUNT - 1]);
@@ -103,7 +101,7 @@ bool SlotRow::do_spin()
 			if (next_position_symbol_index == static_cast<size_t>(SYMBOLS_AMOUNT / 2))
 			{
 				SlotRow::set_middle_symbol_index(iterator);
-				if (middle_symbol_index == win_index && spins_done >= max_spins)
+				if (symbol->get_id() == win_index && spins_done >= max_spins)
 				{
 					symbol->set_position(sf::Vector2f(0.0f, screen_offset));
 					is_spinning = false;
@@ -130,7 +128,7 @@ bool SlotRow::do_spin()
 			SlotRow::real_spin_speed = std::min<float>(SlotRow::real_spin_speed + SlotRow::spin_speed * ACCELERATION_MULTIPLIER, SlotRow::spin_speed);
 		}
 	
-		if (middle_symbol_index == (SYMBOLS_AMOUNT - 1))
+		if (iterator == (SYMBOLS_AMOUNT - 1) && symbol->get_current_index() == SYMBOLS_AMOUNT)
 		{
 			set_done_spins(get_done_spins() + 1);
 		}
