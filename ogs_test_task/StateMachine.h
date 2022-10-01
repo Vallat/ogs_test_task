@@ -18,9 +18,11 @@ public:
 	StateMachine(Renderer* renderer);
 	void process();
 	void set_state(States new_state);
+
 	bool awaiting_input_process();
 	bool slot_spinning_process();
 	bool result_display_process();
+
 private:
 	States current_state = States::AWAITING_INPUT;
 

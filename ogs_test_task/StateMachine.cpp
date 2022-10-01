@@ -7,7 +7,7 @@ StateMachine::StateMachine(Renderer* renderer)
 	slot_spinning = new SlotSpinning(renderer);
 	result_display = new ResultDisplay(renderer);
 
-	// by defaulr we're waiting for user input
+	// by default we're waiting for user input
 	awaiting_input->on_state_change();
 }
 
@@ -29,7 +29,7 @@ void StateMachine::process()
 	case States::SLOT_SPINNING:
 		if (!slot_spinning_process())
 		{
-			result_display->set_win_size(slot_spinning->calculate_win_size());
+			result_display->set_player_win_amount(slot_spinning->calculate_win_size());
 			set_state(States::DISPLAYING_RESULT);
 		}
 		break;

@@ -6,7 +6,7 @@ Button::Button(const std::string& texture_path, sf::Vector2f scale)
 	texture = new sf::Texture;
 	if (!texture->loadFromFile(texture_path))
 	{
-		throw std::runtime_error("Didn't manage to load button with texture " + texture_path);
+		throw std::runtime_error("Button: Didn't manage to load button with texture " + texture_path);
 	}
 	texture->setSmooth(false);
 	set_sprite(new sf::Sprite);
@@ -48,4 +48,9 @@ bool Button::is_clicked(sf::Vector2f mouse_position)
 void Button::set_position(sf::Vector2f new_position)
 {
 	get_sprite()->setPosition(new_position);
+}
+
+sf::Vector2f Button::get_position()
+{
+	return get_sprite()->getPosition();
 }

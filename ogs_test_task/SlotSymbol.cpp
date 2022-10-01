@@ -3,7 +3,7 @@
 SlotSymbol::SlotSymbol()
 {
 	texture = nullptr;
-	sprite = new sf::Sprite;
+	sprite = nullptr;
 }
 
 
@@ -12,8 +12,9 @@ SlotSymbol::SlotSymbol(const std::string &texture_path, sf::Vector2f scale, size
 	texture = new sf::Texture;
 	texture->loadFromFile(texture_path);
 	texture->setSmooth(false);
+
 	sprite = new sf::Sprite;
-	sprite->setTexture(*SlotSymbol::texture);
+	sprite->setTexture(*texture);
 	sprite->setScale(scale);
 
 	set_value(value_);
@@ -23,25 +24,28 @@ SlotSymbol::SlotSymbol(const std::string &texture_path, sf::Vector2f scale, size
 
 sf::Sprite *SlotSymbol::get_sprite()
 {
-	return SlotSymbol::sprite;
+	return sprite;
 }
 
 
 void SlotSymbol::set_position(sf::Vector2f position)
 {
-	SlotSymbol::get_sprite()->setPosition(position);
+	sf::Sprite* current_sprite = get_sprite();
+	current_sprite->setPosition(position);
 }
 
 
 sf::Vector2f SlotSymbol::get_position()
 {
-	return SlotSymbol::get_sprite()->getPosition();
+	sf::Sprite* current_sprite = get_sprite();
+	return current_sprite->getPosition();
 }
 
 
 void SlotSymbol::do_move(sf::Vector2f offset)
 {
-	SlotSymbol::get_sprite()->move(offset);
+	sf::Sprite* current_sprite = get_sprite();
+	current_sprite->move(offset);
 }
 
 
@@ -57,15 +61,19 @@ bool SlotSymbol::move_sprite_to(sf::Vector2f new_position, sf::Vector2f move_spe
 	{
 		move_offset = move_speed;
 	}
-	else
-		move_offset = move_offset;;
-	SlotSymbol::do_move(move_offset);
+
+	do_move(move_offset);
+
 	return true;
 }
 
 
 void SlotSymbol::set_current_index(size_t current_index_)
 {
+	if (current_index_ > SYMBOLS_AMOUNT)
+	{
+		throw std::logic_error("SlotSymbol: current index can't be bigger than amount of symbols!");
+	}
 	current_index = current_index_;
 }
 
@@ -88,6 +96,10 @@ size_t SlotSymbol::get_value()
 
 void SlotSymbol::set_id(size_t id_)
 {
+	if (id_ >= SYMBOLS_AMOUNT)
+	{
+		throw std::logic_error("SlotSymbol: id can't be bigger than amount of symbols minus one!");
+	}
 	id = id_;
 }
 

@@ -4,10 +4,6 @@
 #include "SlotSymbol.h"
 #include "Globals.h"
 
-const size_t LINES_AMOUNT = 3;
-const std::string textures_list[] = {"resources/shape_1.png", "resources/shape_2.png" , "resources/shape_3.png" , "resources/shape_4.png" , "resources/shape_5.png" };
-constexpr size_t SYMBOLS_AMOUNT = _countof(textures_list);
-
 size_t get_real_index_offset(size_t index, size_t max_value, int offset);
 
 class SlotRow
@@ -16,7 +12,7 @@ public:
 	SlotRow();
 	SlotRow(float row_height_, float row_width);
 
-	void set_symbol(size_t index, SlotSymbol* symbol_);
+	void set_symbol(SlotSymbol* symbol_, size_t index);
 	SlotSymbol* get_symbol(size_t index);
 
 	void generate_symbols();
@@ -29,10 +25,17 @@ public:
 	void set_middle_symbol_index(size_t middle_symbol_index_);
 	size_t get_middle_symbol_index();
 
+	void set_spin_speed(float spin_speed_);
+	float get_spin_speed();
+
+	void set_real_spin_speed(float real_spin_speed_);
+	float get_real_spin_speed();
+
 	void set_done_spins(size_t spins_done_);
 	size_t get_done_spins();
 
 	void set_max_spins(size_t max_spins_);
+	size_t get_max_spins();
 
 	void set_win_index(size_t win_index_);
 	size_t get_win_index();

@@ -1,21 +1,23 @@
 #pragma once
 
 #include <SFML/Graphics.hpp>
+#include "Globals.h"
 
 class Renderer
 {
 public:
 	Renderer(unsigned int window_width_, unsigned int window_height_);
 	sf::RenderWindow* get_window();
+
 	void window_clear();
 	void window_draw(sf::Sprite sprite_to_draw);
 	void window_draw(sf::Text text_to_draw);
 	void window_display();
 
 private:
-	unsigned int window_width;
-	unsigned int window_height;
+	unsigned int window_width = 0;
+	unsigned int window_height = 0;
 
-	sf::RenderWindow* display_window;
+	sf::RenderWindow* display_window = nullptr;
 };
 

@@ -5,7 +5,7 @@ ResultDisplay::ResultDisplay(Renderer* renderer_) : GameState::GameState(rendere
 {
 	if (!loaded_font.loadFromFile("Resources/Roboto-Black.ttf"))
 	{
-		throw std::runtime_error("Didn't manage to load font file!");
+		throw std::runtime_error("ResultDisplay: Didn't manage to load font file!");
 	}
 }
 
@@ -20,9 +20,9 @@ bool ResultDisplay::process()
 	sf::Text text_to_display;
 	text_to_display.setFont(loaded_font);
 	text_to_display.setCharacterSize(48);
-	if (win_size)
+	if (player_win_amount)
 	{
-		text_to_display.setString("You won " + std::to_string(win_size) + " credits!");
+		text_to_display.setString("You won " + std::to_string(player_win_amount) + " credits!");
 	}
 	else
 	{
@@ -48,15 +48,15 @@ void ResultDisplay::on_state_change()
 }
 
 
-void ResultDisplay::set_win_size(size_t win_size_)
+void ResultDisplay::set_player_win_amount(size_t player_win_amount_)
 {
-	win_size = win_size_;
+	player_win_amount = player_win_amount_;
 	set_time_result_recieved(std::time(nullptr));
 }
 
-size_t ResultDisplay::get_win_size()
+size_t ResultDisplay::get_player_win_amount()
 {
-	return win_size;
+	return player_win_amount;
 }
 
 

@@ -3,7 +3,7 @@
 AwaitingInput::AwaitingInput(Renderer* renderer_) : GameState::GameState(renderer_)
 {
 	start_button = new Button("Resources/button_start.png", SPRITES_SCALE);
-	start_button->set_position(sf::Vector2f(WINDOW_WIDTH * 0.75f, WINDOW_HEIGHT * 0.3f));
+	start_button->set_position(sf::Vector2f(START_BUTTON_POSITION_X, START_BUTTON_POSITION_Y));
 }
 
 
@@ -20,7 +20,8 @@ bool AwaitingInput::process()
 
 void AwaitingInput::on_wait()
 {
-	GameState::access_renderer()->window_draw(*start_button->get_sprite());
+	sf::Sprite button_sprite = *start_button->get_sprite();
+	GameState::access_renderer()->window_draw(button_sprite);
 }
 
 

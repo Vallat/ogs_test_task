@@ -3,7 +3,11 @@
 
 GameState::GameState(Renderer* renderer_)
 {
-	GameState::renderer = renderer_;
+	if (renderer == nullptr)
+	{
+		throw std::runtime_error("GameStateL Tried to initialize one of game states without renderer!");
+	}
+	renderer = renderer_;
 }
 
 
@@ -21,6 +25,10 @@ bool GameState::is_active()
 
 Renderer* GameState::access_renderer()
 {
+	if (renderer == nullptr)
+	{
+		throw std::runtime_error("GameState: Renderer was not initialized!");
+	}
 	return renderer;
 }
 

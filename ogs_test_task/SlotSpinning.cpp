@@ -6,10 +6,29 @@ SlotSpinning::SlotSpinning(Renderer* renderer_) : GameState::GameState(renderer_
 	{
 		SlotRow* slot_row = new SlotRow(ROW_WIDTH, ROW_HEIGHT);
 		slot_row->generate_symbols();
-		rows_array[iterator] = slot_row;
+		put_row_in_array(slot_row, iterator);
 	}
 	stop_button = new Button("Resources/button_stop.png", SPRITES_SCALE);
 	stop_button->set_position(sf::Vector2f(WINDOW_WIDTH * 0.75f, WINDOW_HEIGHT * 0.9f));
+}
+
+
+void SlotSpinning::put_row_in_array(SlotRow* row_to_put, size_t index)
+{
+	if (index > (ROWS_AMOUNT - 1))
+	{
+		throw std::runtime_error("SlotSpinning: Out of bounds trying to put new row into the array.");
+	}
+	rows_array[index] = row_to_put;
+}
+
+SlotRow* SlotSpinning::get_row_from_array(size_t index)
+{
+	if (index > (ROWS_AMOUNT - 1))
+	{
+		throw std::runtime_error("SlotSpinning: Out of bounds trying to get row from the array.");
+	}
+	return rows_array[index];
 }
 
 
@@ -25,7 +44,7 @@ bool SlotSpinning::process()
 		can_stop = true;
 		for (size_t iterator = 0; iterator < ROWS_AMOUNT; ++iterator)
 		{
-			SlotRow* slot_row = rows_array[iterator];
+			SlotRow* slot_row = get_row_from_array(iterator);
 			// we don't want to stop too early
 			if (slot_row->get_done_spins() < MIN_SPINS_BEFORE_STOP)
 			{
@@ -40,7 +59,7 @@ bool SlotSpinning::process()
 	{
 		for (size_t iterator = 0; iterator < ROWS_AMOUNT; ++iterator)
 		{
-			SlotRow* slot_row = rows_array[iterator];
+			SlotRow* slot_row = get_row_from_array(iterator);
 			slot_row->set_max_spins(2);
 			slot_row->set_done_spins(0);
 		}
@@ -50,7 +69,7 @@ bool SlotSpinning::process()
 	bool all_spins_done = true;
 	for (size_t iterator = 0; iterator < ROWS_AMOUNT; ++iterator)
 	{
-		SlotRow* slot_row = rows_array[iterator];
+		SlotRow* slot_row = get_row_from_array(iterator);
 		if (!slot_row->do_spin())
 		{
 			all_spins_done = false;
@@ -69,7 +88,7 @@ void SlotSpinning::on_wait()
 {
 	for (size_t iterator = 0; iterator < ROWS_AMOUNT; ++iterator)
 	{
-		SlotRow* slot_row = rows_array[iterator];
+		SlotRow* slot_row = get_row_from_array(iterator);
 		sf::RenderTexture rows_texture;
 		rows_texture.create(static_cast<unsigned int>(ROW_WIDTH * 1.5), ROW_HEIGHT);
 		rows_texture.clear();
@@ -92,7 +111,8 @@ void SlotSpinning::on_wait()
 		stop_button->get_sprite()->setColor(sf::Color(255, 255, 255));
 	}
 
-	GameState::access_renderer()->window_draw(*stop_button->get_sprite());
+	sf::Sprite button_sprite = *stop_button->get_sprite();
+	GameState::access_renderer()->window_draw(button_sprite);
 
 }
 
@@ -115,7 +135,7 @@ void SlotSpinning::on_state_change()
 
 	for (size_t iterator = 0; iterator < ROWS_AMOUNT; ++iterator)
 	{
-		SlotRow* slot_row = rows_array[iterator];
+		SlotRow* slot_row = get_row_from_array(iterator);
 		slot_row->start_spinning(speed_dist(mt), spins_dist(mt), win_index_dist(mt));
 	}
 }
@@ -131,12 +151,12 @@ size_t SlotSpinning::calculate_win_size()
 
 	for (size_t iterator = 0; iterator < ROWS_AMOUNT; ++iterator)
 	{
-		SlotRow* slot_row = rows_array[iterator];
+		SlotRow* slot_row = get_row_from_array(iterator);
 		++symbols_amount[slot_row->get_win_index()];
 	}
 
 	size_t win_amount = 0;
-	SlotRow* reference_row = rows_array[0];
+	SlotRow* reference_row = get_row_from_array(0);
 	for (size_t iterator = 0; iterator < SYMBOLS_AMOUNT; iterator++)
 	{
 		if (symbols_amount[iterator] == 3)

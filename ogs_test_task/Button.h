@@ -13,6 +13,7 @@ public:
 	bool is_clicked(sf::Vector2f mouse_position);
 
 	void set_position(sf::Vector2f new_position);
+	sf::Vector2f get_position();
 
 private:
 	sf::Texture* texture;
