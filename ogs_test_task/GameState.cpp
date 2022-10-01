@@ -3,10 +3,6 @@
 
 GameState::GameState(Renderer* renderer_)
 {
-	if (renderer == nullptr)
-	{
-		throw std::runtime_error("GameStateL Tried to initialize one of game states without renderer!");
-	}
 	renderer = renderer_;
 }
 

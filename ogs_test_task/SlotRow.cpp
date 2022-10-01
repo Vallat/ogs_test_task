@@ -37,7 +37,7 @@ void SlotRow::generate_symbols()
 {
 	for (size_t iterator = 0; iterator < SYMBOLS_AMOUNT; ++iterator)
 	{
-		SlotSymbol *symbol_to_add = new SlotSymbol(SYMBOLS_TEXTURES[iterator], SPRITES_SCALE, (iterator + 1) * 10, iterator);
+		SlotSymbol *symbol_to_add = new SlotSymbol(SYMBOLS_TEXTURES[iterator], SPRITES_SCALE, (iterator + 1) * BASE_VALUE_MULTIPLIER, iterator);
 		set_symbol(symbol_to_add, iterator);
 	}
 	std::random_shuffle(&symbols[0], &symbols[SYMBOLS_AMOUNT - 1]);
@@ -50,7 +50,7 @@ void SlotRow::initial_position_symbols()
 	for (size_t iterator = 0; iterator < SYMBOLS_AMOUNT; ++iterator)
 	{
 		SlotSymbol *symbol = get_symbol(iterator);
-		float y_position = SlotRow::row_height / LINES_AMOUNT * (static_cast<float>(iterator) - 1);
+		float y_position = row_height / LINES_AMOUNT * (static_cast<float>(iterator) - 1);
 		symbol->set_position(sf::Vector2f(0, y_position));
 		symbol->set_current_index(iterator);
 	}
@@ -85,17 +85,17 @@ bool SlotRow::do_spin()
 	{
 		return true;
 	}
-	float screen_offset = SlotRow::row_height / LINES_AMOUNT;
+	float line_height = row_height / LINES_AMOUNT;
 
 	for (size_t iterator = 0; iterator < SYMBOLS_AMOUNT; ++iterator)
 	{
 		SlotSymbol* symbol = get_symbol(iterator);
 
-		// getting next position we want to move the symbol
+		// getting the next position we want to move the symbol to
 		size_t next_position_symbol_index = get_real_index_offset(symbol->get_current_index(), SYMBOLS_AMOUNT, 1);
-		sf::Vector2f position_to_move(0.0f, row_height / LINES_AMOUNT * (static_cast<float>(next_position_symbol_index) - 1.0f));
+		sf::Vector2f position_to_move(0.0f, line_height * (static_cast<float>(next_position_symbol_index) - 1.0f));
 	
-		// didn't manage to move - reached the destination
+		// didn't manage to move means symbol reached the destination
 		if (!symbol->move_sprite_to(position_to_move, sf::Vector2f(0.0f, get_real_spin_speed())))
 		{
 			if (next_position_symbol_index == static_cast<size_t>(SYMBOLS_AMOUNT / 2))
@@ -103,7 +103,7 @@ bool SlotRow::do_spin()
 				SlotRow::set_middle_symbol_index(iterator);
 				if (symbol->get_id() == get_win_index() && get_done_spins() >= get_max_spins())
 				{
-					symbol->set_position(sf::Vector2f(0.0f, screen_offset));
+					symbol->set_position(sf::Vector2f(0.0f, line_height));
 					is_spinning = false;
 				}
 
@@ -111,19 +111,19 @@ bool SlotRow::do_spin()
 			symbol->set_current_index(next_position_symbol_index);
 		}
 
-		size_t symbol_current_index = next_position_symbol_index;
+		size_t symbol_current_index = symbol->get_current_index();
 		if (symbol_current_index != (SYMBOLS_AMOUNT))
 		{
 			continue;
 		}
 
-		// reached the end of the row, lets move back to start
-		symbol->set_position(sf::Vector2f(0, -screen_offset));
+		// reached the end of the row, lets move back to the beginning
+		symbol->set_position(sf::Vector2f(0, -line_height));
 
 		float lreal_spin_speed = get_real_spin_speed();
 		float lspin_speed = get_spin_speed();
 
-		if (get_done_spins() >= max_spins - 1)
+		if (get_done_spins() >= get_max_spins() - 1)
 		{
 			set_real_spin_speed(std::max<float>(lreal_spin_speed - lspin_speed * SLOWDOWN_MULTIPLIER, lspin_speed * 0.25f));
 		}
@@ -131,7 +131,7 @@ bool SlotRow::do_spin()
 		{
 			set_real_spin_speed(std::min<float>(lreal_spin_speed + lspin_speed * ACCELERATION_MULTIPLIER, lspin_speed));
 		}
-	
+
 		if (iterator == (SYMBOLS_AMOUNT - 1) && symbol_current_index == SYMBOLS_AMOUNT)
 		{
 			set_done_spins(get_done_spins() + 1);
@@ -181,16 +181,16 @@ void SlotRow::set_middle_symbol_index(size_t middle_symbol_index_)
 
 size_t get_real_index_offset(size_t index, size_t max_value, int offset)
 {
-	int real_value = static_cast<int>(index) + offset;
+	int real_value = static_cast<int> (index) + offset;
 	if (real_value > max_value)
 	{
-		real_value = real_value - static_cast<int>(max_value) - 1;
+		real_value = real_value - static_cast<int> (max_value) - 1;
 	}
 	else if (real_value < 0)
 	{
-		real_value = static_cast<int>(max_value) + real_value + 1;
+		real_value = static_cast<int> (max_value) + real_value + 1;
 	}
-	return static_cast<size_t>(real_value);
+	return static_cast<size_t> (real_value);
 }
 
 

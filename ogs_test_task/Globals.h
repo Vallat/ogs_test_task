@@ -23,6 +23,7 @@ const size_t SPINS_BOTTOM_LIMIT = 20;
 const size_t SPINS_UPPER_LIMIT = 25;
 const size_t MIN_SPINS_BEFORE_STOP = 5;
 
+const size_t BASE_VALUE_MULTIPLIER = 10;
 const size_t THREE_IN_LINE_MULTIPLIER = 10;
 const size_t TWO_IN_LINE_MULTIPLIER = 3;
 

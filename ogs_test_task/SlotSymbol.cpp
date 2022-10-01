@@ -10,19 +10,28 @@ SlotSymbol::SlotSymbol()
 SlotSymbol::SlotSymbol(const std::string &texture_path, sf::Vector2f scale, size_t value_, size_t id_)
 {
 	texture = new sf::Texture;
-	texture->loadFromFile(texture_path);
+	if (!texture->loadFromFile(texture_path))
+	{
+		throw std::runtime_error("SlotSymbol: Didn't manage to load symbol with texture " + texture_path);
+	}
 	texture->setSmooth(false);
 
-	sprite = new sf::Sprite;
-	sprite->setTexture(*texture);
-	sprite->setScale(scale);
+	sf::Sprite* current_sprite = new sf::Sprite;
+	current_sprite->setTexture(*texture);
+	current_sprite->setScale(scale);
+	set_sprite(current_sprite);
 
 	set_value(value_);
 	set_id(id_);
 }
 
 
-sf::Sprite *SlotSymbol::get_sprite()
+void SlotSymbol::set_sprite(sf::Sprite* sprite_)
+{
+	sprite = sprite_;
+}
+
+sf::Sprite* SlotSymbol::get_sprite()
 {
 	return sprite;
 }
@@ -51,7 +60,7 @@ void SlotSymbol::do_move(sf::Vector2f offset)
 
 bool SlotSymbol::move_sprite_to(sf::Vector2f new_position, sf::Vector2f move_speed)
 {
-	sf::Vector2f move_offset(new_position - SlotSymbol::get_position());
+	sf::Vector2f move_offset(new_position - get_position());
 	if (!move_offset.y)
 	{
 		return false;

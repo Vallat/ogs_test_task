@@ -9,12 +9,15 @@ Button::Button(const std::string& texture_path, sf::Vector2f scale)
 		throw std::runtime_error("Button: Didn't manage to load button with texture " + texture_path);
 	}
 	texture->setSmooth(false);
-	set_sprite(new sf::Sprite);
-	get_sprite()->setTexture(*texture);
-	get_sprite()->setScale(scale);
 
-	sf::FloatRect text_rect = get_sprite()->getLocalBounds();
-	get_sprite()->setOrigin(text_rect.left + text_rect.width / 2.0f, text_rect.top + text_rect.height);
+	sf::Sprite* current_sprite = new sf::Sprite;
+	current_sprite->setTexture(*texture);
+	current_sprite->setScale(scale);
+
+	sf::FloatRect text_rect = current_sprite->getLocalBounds();
+	current_sprite->setOrigin(text_rect.left + text_rect.width / 2.0f, text_rect.top + text_rect.height);
+
+	set_sprite(current_sprite);
 }
 
 
@@ -47,10 +50,12 @@ bool Button::is_clicked(sf::Vector2f mouse_position)
 
 void Button::set_position(sf::Vector2f new_position)
 {
-	get_sprite()->setPosition(new_position);
+	sf::Sprite* current_sprite = get_sprite();
+	current_sprite->setPosition(new_position);
 }
 
 sf::Vector2f Button::get_position()
 {
-	return get_sprite()->getPosition();
+	sf::Sprite* current_sprite = get_sprite();
+	return current_sprite->getPosition();
 }
