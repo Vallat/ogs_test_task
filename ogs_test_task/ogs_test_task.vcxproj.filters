@@ -27,7 +27,7 @@
     <ClCompile Include="SlotSymbol.cpp">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
-    <ClCompile Include="SlotRow.cpp">
+    <ClCompile Include="SlotColumn.cpp">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
     <ClCompile Include="StateMachine.cpp">
@@ -56,7 +56,7 @@
     <ClInclude Include="SlotSymbol.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
-    <ClInclude Include="SlotRow.h">
+    <ClInclude Include="SlotColumn.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
     <ClInclude Include="StateMachine.h">

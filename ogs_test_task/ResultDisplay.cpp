@@ -1,5 +1,6 @@
 #include "ResultDisplay.h"
-#include <iostream>
+#include "Globals.h"
+
 
 ResultDisplay::ResultDisplay(Renderer* renderer_) : GameState::GameState(renderer_)
 {

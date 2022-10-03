@@ -1,9 +1,9 @@
 #pragma once
 
-#include "AwaitingInput.h"
-#include "SlotSpinning.h"
-#include "ResultDisplay.h"
-#include "Renderer.h"
+class AwaitingInput;
+class SlotSpinning;
+class ResultDisplay;
+class Renderer;
 
 enum class States
 {
@@ -19,8 +19,19 @@ public:
 	void process();
 	void set_state(States new_state);
 
+	/// <summary>
+	/// Calls process() of the AwaitingInput object, returns its result
+	/// </summary>
 	bool awaiting_input_process();
+
+	/// <summary>
+	/// Calls process() of the SlotSpinning object, returns its result
+	/// </summary>
 	bool slot_spinning_process();
+
+	/// <summary>
+	/// Calls process() of the ReslutDisplay object, returns its result
+	/// </summary>
 	bool result_display_process();
 
 private:

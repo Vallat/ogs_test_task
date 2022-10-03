@@ -1,4 +1,6 @@
 #include "AwaitingInput.h"
+#include "Button.h"
+#include "Renderer.h"
 
 AwaitingInput::AwaitingInput(Renderer* renderer_) : GameState::GameState(renderer_)
 {

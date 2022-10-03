@@ -1,20 +1,19 @@
 #include "Renderer.h"
+#include "Globals.h"
+
 
 Renderer::Renderer(unsigned int window_width_, unsigned int window_height_)
 {
-	window_width = window_width_;
-	window_height = window_height_;
-
-	display_window = new sf::RenderWindow(sf::VideoMode(window_width, window_height), WINDOW_NAME);
+	display_window = new sf::RenderWindow(sf::VideoMode(window_width_, window_height_), WINDOW_NAME);
+	if (display_window == nullptr)
+	{
+		throw std::runtime_error("Renderer: Display window was not initialized!");
+	}
 }
 
 
 sf::RenderWindow* Renderer::get_window()
 {
-	if (display_window == nullptr)
-	{
-		throw std::runtime_error("Renderer: Display window was not initialized!");
-	}
 	return display_window;
 }
 

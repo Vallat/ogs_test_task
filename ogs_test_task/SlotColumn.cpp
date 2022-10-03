@@ -1,20 +1,11 @@
-#include "SlotRow.h"
-
-SlotRow::SlotRow()
-{
-	row_height = 0;
-	row_width = 0;
-}
+#include "SlotColumn.h"
+#include "SlotSymbol.h"
 
 
-SlotRow::SlotRow(float row_width_, float row_height_)
-{
-	row_width = row_width_;
-	row_height = row_height_;
-}
-	
+SlotColumn::SlotColumn() {}
 
-void SlotRow::set_symbol(SlotSymbol* symbol_, size_t index)
+
+void SlotColumn::set_symbol(SlotSymbol* symbol_, size_t index)
 {
 	if (index > (SYMBOLS_AMOUNT - 1))
 	{
@@ -23,7 +14,7 @@ void SlotRow::set_symbol(SlotSymbol* symbol_, size_t index)
 	symbols[index] = symbol_;
 }
 
-SlotSymbol* SlotRow::get_symbol(size_t index)
+SlotSymbol* SlotColumn::get_symbol(size_t index)
 {
 	if (index > (SYMBOLS_AMOUNT - 1))
 	{
@@ -33,7 +24,7 @@ SlotSymbol* SlotRow::get_symbol(size_t index)
 }
 
 
-void SlotRow::generate_symbols()
+void SlotColumn::generate_symbols()
 {
 	for (size_t iterator = 0; iterator < SYMBOLS_AMOUNT; ++iterator)
 	{
@@ -41,23 +32,23 @@ void SlotRow::generate_symbols()
 		set_symbol(symbol_to_add, iterator);
 	}
 	std::random_shuffle(&symbols[0], &symbols[SYMBOLS_AMOUNT - 1]);
-	SlotRow::initial_position_symbols();
+	SlotColumn::initial_position_symbols();
 }
 
 
-void SlotRow::initial_position_symbols()
+void SlotColumn::initial_position_symbols()
 {
 	for (size_t iterator = 0; iterator < SYMBOLS_AMOUNT; ++iterator)
 	{
 		SlotSymbol *symbol = get_symbol(iterator);
-		float y_position = row_height / LINES_AMOUNT * (static_cast<float>(iterator) - 1);
+		float y_position = COLUMN_HEIGHT / LINES_AMOUNT * (static_cast<float>(iterator) - 1);
 		symbol->set_position(sf::Vector2f(0, y_position));
 		symbol->set_current_index(iterator);
 	}
 }
 
 
-void SlotRow::display_symbols(sf::RenderTexture *texture)
+void SlotColumn::display_symbols(sf::RenderTexture *texture)
 {
 	for (size_t iterator = 0; iterator < SYMBOLS_AMOUNT; ++iterator)
 	{
@@ -67,25 +58,24 @@ void SlotRow::display_symbols(sf::RenderTexture *texture)
 }
 
 
-void SlotRow::start_spinning(float spin_speed_, size_t max_spins_, size_t win_index_)
+void SlotColumn::start_spinning(float spin_speed_, size_t max_spins_, size_t win_index_)
 {
 	set_spin_speed(spin_speed_);
 	set_real_spin_speed(get_spin_speed() * START_SPIN_SPEED_MULTIPLIER);
 	set_done_spins(0);
 	set_max_spins(max_spins_);
 	set_win_index(win_index_);
-	set_middle_symbol_index(static_cast<size_t>(SYMBOLS_AMOUNT / 2));
 	is_spinning = true;
 }
 
 
-bool SlotRow::do_spin()
+bool SlotColumn::do_spin()
 {
 	if (!is_spinning)
 	{
 		return true;
 	}
-	float line_height = row_height / LINES_AMOUNT;
+	float line_height = COLUMN_HEIGHT / LINES_AMOUNT;
 
 	for (size_t iterator = 0; iterator < SYMBOLS_AMOUNT; ++iterator)
 	{
@@ -100,7 +90,6 @@ bool SlotRow::do_spin()
 		{
 			if (next_position_symbol_index == static_cast<size_t>(SYMBOLS_AMOUNT / 2))
 			{
-				SlotRow::set_middle_symbol_index(iterator);
 				if (symbol->get_id() == get_win_index() && get_done_spins() >= get_max_spins())
 				{
 					symbol->set_position(sf::Vector2f(0.0f, line_height));
@@ -142,40 +131,25 @@ bool SlotRow::do_spin()
 }
 
 
-void SlotRow::set_spin_speed(float spin_speed_)
+void SlotColumn::set_spin_speed(float spin_speed_)
 {
 	spin_speed = spin_speed_;
 }
 
-float SlotRow::get_spin_speed()
+float SlotColumn::get_spin_speed()
 {
 	return spin_speed;
 }
 
 
-void SlotRow::set_real_spin_speed(float real_spin_speed_)
+void SlotColumn::set_real_spin_speed(float real_spin_speed_)
 {
 	real_spin_speed = real_spin_speed_;
 }
 
-float SlotRow::get_real_spin_speed()
+float SlotColumn::get_real_spin_speed()
 {
 	return real_spin_speed;
-}
-
-
-size_t SlotRow::get_middle_symbol_index()
-{
-	return middle_symbol_index;
-}
-
-void SlotRow::set_middle_symbol_index(size_t middle_symbol_index_)
-{
-	if (middle_symbol_index_ > (SYMBOLS_AMOUNT - 1))
-	{
-		middle_symbol_index_ = 0;
-	}
-	middle_symbol_index = middle_symbol_index_;
 }
 
 
@@ -194,29 +168,29 @@ size_t get_real_index_offset(size_t index, size_t max_value, int offset)
 }
 
 
-void SlotRow::set_done_spins(size_t spins_done_)
+void SlotColumn::set_done_spins(size_t spins_done_)
 {
 	spins_done = spins_done_;
 }
 
-size_t SlotRow::get_done_spins()
+size_t SlotColumn::get_done_spins()
 {
-	return SlotRow::spins_done;
+	return SlotColumn::spins_done;
 }
 
 
-void SlotRow::set_max_spins(size_t max_spins_)
+void SlotColumn::set_max_spins(size_t max_spins_)
 {
 	max_spins = max_spins_;
 }
 
-size_t SlotRow::get_max_spins()
+size_t SlotColumn::get_max_spins()
 {
 	return max_spins;
 }
 
 
-void SlotRow::set_win_index(size_t win_index_)
+void SlotColumn::set_win_index(size_t win_index_)
 {
 	if (win_index_ >= SYMBOLS_AMOUNT)
 	{
@@ -225,7 +199,7 @@ void SlotRow::set_win_index(size_t win_index_)
 	win_index = win_index_;
 }
 
-size_t SlotRow::get_win_index()
+size_t SlotColumn::get_win_index()
 {
 	return win_index;
 }

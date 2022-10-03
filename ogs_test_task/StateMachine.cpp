@@ -1,11 +1,21 @@
+#include "AwaitingInput.h"
+#include "SlotSpinning.h"
+#include "ResultDisplay.h"
+#include "Renderer.h"
 #include "StateMachine.h"
-
 
 StateMachine::StateMachine(Renderer* renderer)
 {
-	awaiting_input = new AwaitingInput(renderer);
-	slot_spinning = new SlotSpinning(renderer);
-	result_display = new ResultDisplay(renderer);
+	try
+	{
+		awaiting_input = new AwaitingInput(renderer);
+		slot_spinning = new SlotSpinning(renderer);
+		result_display = new ResultDisplay(renderer);
+	}
+	catch (const std::exception&)
+	{
+		throw;
+	}
 
 	// by default we're waiting for user input
 	awaiting_input->on_state_change();

@@ -6,9 +6,9 @@ const unsigned int WINDOW_HEIGHT = 600;
 const unsigned int WINDOW_WIDTH = 900;
 
 const size_t LINES_AMOUNT = 3;
-const size_t ROWS_AMOUNT = 3;
-const unsigned int  ROW_HEIGHT = 500;
-const unsigned int  ROW_WIDTH = 100;
+const size_t COLUMNS_AMOUNT = 3;
+const unsigned int  COLUMN_HEIGHT = 500;
+const unsigned int  COLUMN_WIDTH = 100;
 
 const std::string SYMBOLS_TEXTURES[] = { "resources/shape_1.png", "resources/shape_2.png" , "resources/shape_3.png" , "resources/shape_4.png" , "resources/shape_5.png" };
 constexpr size_t SYMBOLS_AMOUNT = _countof(SYMBOLS_TEXTURES);
@@ -32,3 +32,6 @@ const size_t SECONDS_TO_DISPLAY_RESULT = 10;
 
 const float START_BUTTON_POSITION_X = WINDOW_WIDTH * 0.75f;
 const float START_BUTTON_POSITION_Y = WINDOW_HEIGHT * 0.3f;
+
+const float STOP_BUTTON_POSITION_X = WINDOW_WIDTH * 0.75f;
+const float STOP_BUTTON_POSITION_Y = WINDOW_HEIGHT * 0.9f;

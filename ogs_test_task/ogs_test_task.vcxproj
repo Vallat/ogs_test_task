@@ -157,7 +157,7 @@
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Renderer.cpp" />
     <ClCompile Include="ResultDisplay.cpp" />
-    <ClCompile Include="SlotRow.cpp" />
+    <ClCompile Include="SlotColumn.cpp" />
     <ClCompile Include="SlotSpinning.cpp" />
     <ClCompile Include="SlotSymbol.cpp" />
     <ClCompile Include="StateMachine.cpp" />
@@ -169,7 +169,7 @@
     <ClInclude Include="Globals.h" />
     <ClInclude Include="Renderer.h" />
     <ClInclude Include="ResultDisplay.h" />
-    <ClInclude Include="SlotRow.h" />
+    <ClInclude Include="SlotColumn.h" />
     <ClInclude Include="SlotSpinning.h" />
     <ClInclude Include="SlotSymbol.h" />
     <ClInclude Include="StateMachine.h" />
