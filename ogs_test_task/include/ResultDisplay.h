@@ -1,6 +1,9 @@
 #pragma once
 #include "GameState.h"
 
+/// <summary>
+/// This state of StateMachine handles the display of the result player got by spin process
+/// </summary>
 class ResultDisplay :
 	public GameState
 {

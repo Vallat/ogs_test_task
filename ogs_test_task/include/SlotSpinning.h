@@ -4,6 +4,9 @@
 class SlotColumn;
 class Button;
 
+/// <summary>
+/// This state of StateMachine handles entire spin process (animations, win result generation, pressing of the stop button, etc.)
+/// </summary>
 class SlotSpinning :
 	public GameState
 {

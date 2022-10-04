@@ -4,6 +4,9 @@
 class Renderer;
 class Button;
 
+/// <summary>
+/// This state of StateMachine waits for user to press enter or click the start button
+/// </summary>
 class AwaitingInput :
 	public GameState
 {
