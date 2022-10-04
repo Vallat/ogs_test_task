@@ -14,6 +14,10 @@
 /// "1" if the application was terminated by closing the window
 /// "0" if the application was terminated by unexpected runtime error
 /// </returns>
+/// <own_thoughts>
+/// There is no game loop with fixed tick limit (though I know it is better to have it),
+/// because it causes some weird graphic issues on my end (probably I am doing something wrong). In the future, I may add it upon request.
+/// </own_thoughts>
 
 int main()
 {
