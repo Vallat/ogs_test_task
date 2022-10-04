@@ -30,18 +30,27 @@ int main()
 		return 0;
 	}
 
-	while (renderer->get_window()->isOpen())
+	try
 	{
-		sf::Event event;
-		while (renderer->get_window()->pollEvent(event))
+		while (renderer->get_window()->isOpen())
 		{
-			if (event.type == sf::Event::Closed)
-				renderer->get_window()->close();
-		}
+			sf::Event event;
+			while (renderer->get_window()->pollEvent(event))
+			{
+				if (event.type == sf::Event::Closed)
+					renderer->get_window()->close();
+			}
 
-		renderer->window_clear();
-		state_machine->process();
-		renderer->window_display();
+			renderer->window_clear();
+			state_machine->process();
+			renderer->window_display();
+		}
+	}
+	catch (const std::exception& error)
+	{
+		renderer->get_window()->close();
+		std::cout << error.what() << std::endl;
+		return 0;
 	}
 
 	return 1;
