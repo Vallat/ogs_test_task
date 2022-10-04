@@ -10,7 +10,6 @@ SlotSpinning::SlotSpinning(Renderer* renderer_) : GameState::GameState(renderer_
 	for (size_t iterator = 0; iterator < COLUMNS_AMOUNT; ++iterator)
 	{
 		SlotColumn* slot_column = new SlotColumn();
-		slot_column->generate_symbols();
 		put_column_in_array(slot_column, iterator);
 	}
 	stop_button = new Button("Resources/button_stop.png", SPRITES_SCALE);

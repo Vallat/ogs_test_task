@@ -2,7 +2,10 @@
 #include "SlotSymbol.h"
 
 
-SlotColumn::SlotColumn() {}
+SlotColumn::SlotColumn()
+{
+	generate_symbols();
+}
 
 
 void SlotColumn::set_symbol(SlotSymbol* symbol_, size_t index)
@@ -32,7 +35,7 @@ void SlotColumn::generate_symbols()
 		set_symbol(symbol_to_add, iterator);
 	}
 	std::random_shuffle(&symbols[0], &symbols[SYMBOLS_AMOUNT - 1]);
-	SlotColumn::initial_position_symbols();
+	initial_position_symbols();
 }
 
 
@@ -175,7 +178,7 @@ void SlotColumn::set_done_spins(size_t spins_done_)
 
 size_t SlotColumn::get_done_spins()
 {
-	return SlotColumn::spins_done;
+	return spins_done;
 }
 
 
