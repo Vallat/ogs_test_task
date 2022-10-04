@@ -29,9 +29,21 @@ SlotSymbol* SlotColumn::get_symbol(size_t index)
 
 void SlotColumn::generate_symbols()
 {
+	sf::Texture* textures_cache[SYMBOLS_AMOUNT];
 	for (size_t iterator = 0; iterator < SYMBOLS_AMOUNT; ++iterator)
 	{
-		SlotSymbol *symbol_to_add = new SlotSymbol(SYMBOLS_TEXTURES[iterator], SPRITES_SCALE, (iterator + 1) * BASE_VALUE_MULTIPLIER, iterator);
+		sf::Texture* texture = new sf::Texture;
+		if (!texture->loadFromFile(SYMBOLS_TEXTURES[iterator]))
+		{
+			throw std::runtime_error("SlotSymbol: Didn't manage to load symbol with texture " + SYMBOLS_TEXTURES[iterator]);
+		}
+		texture->setSmooth(false);
+		textures_cache[iterator] = texture;
+	}
+
+	for (size_t iterator = 0; iterator < SYMBOLS_AMOUNT; ++iterator)
+	{
+		SlotSymbol *symbol_to_add = new SlotSymbol(textures_cache[iterator], SPRITES_SCALE, (iterator + 1) * BASE_VALUE_MULTIPLIER, iterator);
 		set_symbol(symbol_to_add, iterator);
 	}
 	std::random_shuffle(&symbols[0], &symbols[SYMBOLS_AMOUNT - 1]);

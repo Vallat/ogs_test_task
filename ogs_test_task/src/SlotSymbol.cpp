@@ -7,14 +7,9 @@ SlotSymbol::SlotSymbol()
 }
 
 
-SlotSymbol::SlotSymbol(const std::string &texture_path, sf::Vector2f scale, size_t value_, size_t id_)
+SlotSymbol::SlotSymbol(sf::Texture* texture_, sf::Vector2f scale, size_t value_, size_t id_)
 {
-	texture = new sf::Texture;
-	if (!texture->loadFromFile(texture_path))
-	{
-		throw std::runtime_error("SlotSymbol: Didn't manage to load symbol with texture " + texture_path);
-	}
-	texture->setSmooth(false);
+	texture = texture_;
 
 	sf::Sprite* current_sprite = new sf::Sprite;
 	current_sprite->setTexture(*texture);

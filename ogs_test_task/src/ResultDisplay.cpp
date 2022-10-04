@@ -8,12 +8,13 @@ ResultDisplay::ResultDisplay(Renderer* renderer_) : GameState::GameState(rendere
 	{
 		throw std::runtime_error("ResultDisplay: Didn't manage to load font file!");
 	}
+	timer = new sf::Clock();
 }
 
 
 bool ResultDisplay::process()
 {
-	if ((static_cast<std::time_t>(get_time_result_recieved() + SECONDS_TO_DISPLAY_RESULT) < std::time(nullptr)))
+	if (timer->getElapsedTime() > sf::seconds(SECONDS_TO_DISPLAY_RESULT))
 	{
 		return false;
 	}
@@ -52,22 +53,11 @@ void ResultDisplay::on_state_change()
 void ResultDisplay::set_player_win_amount(size_t player_win_amount_)
 {
 	player_win_amount = player_win_amount_;
-	set_time_result_recieved(std::time(nullptr));
+	timer->restart();
 }
 
 size_t ResultDisplay::get_player_win_amount()
 {
 	return player_win_amount;
-}
-
-
-void ResultDisplay::set_time_result_recieved(std::time_t time_result_recieved_)
-{
-	time_result_recieved = time_result_recieved_;
-}
-
-std::time_t ResultDisplay::get_time_result_recieved()
-{
-	return time_result_recieved;
 }
 

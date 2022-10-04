@@ -15,7 +15,7 @@ constexpr size_t SYMBOLS_AMOUNT = _countof(SYMBOLS_TEXTURES);
 const sf::Vector2f SPRITES_SCALE = sf::Vector2f(4.f, 4.f);
 
 
-const float SPIN_SPEED = 6.0f;
+const float SPIN_SPEED = COLUMN_HEIGHT * 0.01f;
 const float ACCELERATION_MULTIPLIER = 0.1f;
 const float SLOWDOWN_MULTIPLIER = 0.1f;
 const float START_SPIN_SPEED_MULTIPLIER = 0.2f;
@@ -27,7 +27,7 @@ const size_t BASE_VALUE_MULTIPLIER = 10;
 const size_t THREE_IN_LINE_MULTIPLIER = 10;
 const size_t TWO_IN_LINE_MULTIPLIER = 3;
 
-const size_t SECONDS_TO_DISPLAY_RESULT = 10;
+const float SECONDS_TO_DISPLAY_RESULT = 10;
 
 
 const float START_BUTTON_POSITION_X = WINDOW_WIDTH * 0.75f;
